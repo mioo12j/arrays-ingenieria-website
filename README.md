@@ -69,11 +69,21 @@ Add an entry to `COVERAGE` in `tools/build.py`. It appears on the News & Media p
 the "featured in" strips and the structured data. Then run the build.
 
 ## Domain
-`SITE_URL` at the top of `tools/build.py` is the address used in canonical tags, the
-sitemap and social previews. **arraysingenieria.com is not registered yet.** Once it is
-registered and added in Netlify, choose one primary form (for example `https://arraysingenieria.com`);
-Netlify then 301-redirects the other form (www or non-www) and HTTP to it automatically. Set `SITE_URL`
-to the same primary URL, run the build, and submit the new sitemap in Google Search Console.
+`SITE_URL` in `tools/build.py` is **https://arraysingenieria.com**. It is used only where search engines
+and social networks need a full address: canonical tags, `og:`/`twitter:` tags, structured data,
+`sitemap.xml`, `robots.txt` and `llms.txt`. Every link between pages, image and script is root-relative
+(`/about/`, `/assets/...`), so the site works on any host: locally, on the netlify.app address, and on
+the domain. The build fails if a page link or image ever uses the full domain.
+
+When the domain is bought:
+1. In Netlify: Domain management, Add a domain, `arraysingenieria.com`, and follow its DNS steps.
+   Add `www.arraysingenieria.com` too and keep `arraysingenieria.com` as the primary domain; Netlify then
+   301-redirects www and HTTP to it and issues the HTTPS certificate.
+2. Once the domain loads over HTTPS, add this line at the top of `_redirects` (via `write_redirects()` in
+   `tools/build.py`) so the old address sends visitors and Google to the domain:
+   `https://arraysingenieria.netlify.app/*  https://arraysingenieria.com/:splat  301!`
+   Do not add it before the domain works, or the netlify.app address will redirect to a dead site.
+3. In Google Search Console, add the domain property and submit `https://arraysingenieria.com/sitemap.xml`.
 
 ## Run locally
     python3 tools/serve.py          # then open http://localhost:8766/

@@ -27,10 +27,10 @@ import struct
 import sys
 from datetime import date
 
-# The live address. arraysingenieria.com is not registered yet (DNS NXDOMAIN on
-# 2026-09-26); switch this to "https://www.arraysingenieria.com" once it is,
-# re-run the build, and add the domain in Netlify.
-SITE_URL = "https://arraysingenieria.netlify.app"
+# The site's public address. Used ONLY where search engines and social networks need a full
+# URL: canonical tags, og:/twitter: tags, structured data, sitemap.xml, robots.txt and llms.txt.
+# Links between pages are always root-relative ("/about/"), so the site works on any host.
+SITE_URL = "https://arraysingenieria.com"
 # Any of these in existing markup are rewritten to SITE_URL.
 KNOWN_HOSTS = re.compile(r"https?://(?:www\.)?arraysingenieria\.(?:com|netlify\.app)")
 
@@ -2188,6 +2188,9 @@ def check_links():
             problems.append(f"{fname}: canonical tag count")
         if "<main" not in t:
             problems.append(f"{fname}: no <main> landmark")
+        body = re.sub(r'<script type="application/ld\+json".*?</script>', "", t.split("</head>", 1)[-1], flags=re.S)
+        if KNOWN_HOSTS.search(re.sub(r"\s(?:href|src)=\"https?://[^\"]*\"", lambda m: m.group(0) if KNOWN_HOSTS.search(m.group(0)) else "", body)):
+            problems.append(f"{fname}: a link or image uses the full domain; internal links must be root-relative (/about/)")
         for m in re.findall(r'<script type="application/ld\+json"[^>]*>(.*?)</script>', t, re.S):
             try:
                 json.loads(m)
