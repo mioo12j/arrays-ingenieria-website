@@ -1,3 +1,12 @@
+/* A form service can answer HTTP 200 and still refuse the message (FormSubmit sends {"success":"false"}, for example
+   before the inbox has been activated). Only an explicit success in the JSON body counts as sent. */
+async function formAccepted(res) {
+  let data = null;
+  try { data = await res.json(); } catch (e) { data = null; }
+  const ok = res.ok && data && (data.success === true || data.success === "true" || data.ok === true);
+  return { ok: !!ok, message: data && typeof data.message === "string" ? data.message : "" };
+}
+
 /* ===========================================================
    ARRAYS INGENIERIA, page interactions
    =========================================================== */
@@ -357,16 +366,14 @@
           status.className = "form-status";
           status.textContent = "Sending your enquiry…";
           const res = await fetch(endpoint, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
-          if (res.ok) {
-            status.className = "form-status ok";
-            status.textContent = "✓ Thank you, " + name + "! Your enquiry has been sent. We'll be in touch shortly.";
-            form.reset();
-          } else {
-            throw new Error("send failed");
-          }
+          const result = await formAccepted(res);
+          if (!result.ok) throw new Error(result.message || "send failed");
+          status.className = "form-status ok";
+          status.textContent = "✓ Thank you, " + name + "! Your enquiry has been sent. We'll be in touch shortly.";
+          form.reset(); // only once the service has confirmed it; on failure the visitor's details stay in the form
         } catch (err) {
           status.className = "form-status err";
-          status.textContent = "Couldn't send right now. Please email us at " + COMPANY_EMAIL + ".";
+          status.textContent = "Your enquiry was not sent. Your details are still in the form: please try again, or email us at " + COMPANY_EMAIL + ".";
         } finally {
           sending = false;
           btn.disabled = false;

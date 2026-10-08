@@ -30,9 +30,11 @@ from datetime import date
 # The site's public address. Used ONLY where search engines and social networks need a full
 # URL: canonical tags, og:/twitter: tags, structured data, sitemap.xml, robots.txt and llms.txt.
 # Links between pages are always root-relative ("/about/"), so the site works on any host.
-SITE_URL = "https://arraysingenieria.com"
+# It must be an address that actually loads: today that is the Cloudflare Pages address. When
+# arraysingenieria.com is bought and connected in Cloudflare, change this one line and rebuild.
+SITE_URL = "https://arrays-9mj.pages.dev"
 # Any of these in existing markup are rewritten to SITE_URL.
-KNOWN_HOSTS = re.compile(r"https?://(?:www\.)?arraysingenieria\.(?:com|netlify\.app)")
+KNOWN_HOSTS = re.compile(r"https?://(?:(?:www\.)?arraysingenieria\.(?:com|netlify\.app)|arrays-9mj\.pages\.dev)")
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 JS_SOURCES = ("components", "main", "calculator", "india-map-data", "quote")
@@ -2366,9 +2368,10 @@ def write_redirects():
     for fname, meta in PAGES.items():
         if meta["path"] and fname != "index.html":
             lines.append(f"/{fname}  {meta['path']}  301")
+    # Only 301 rules: they work the same on Cloudflare Pages and Netlify (Cloudflare ignores 404/forced rules).
     lines += ["/index.html  /  301", "/index  /  301",
               "/privacy.html  /privacy-policy/  301", "/privacy  /privacy-policy/  301", "/privacy/  /privacy-policy/  301",
-              "/tools/*  /404.html  404!"]
+              "/tools/*  /  301"]
     open(os.path.join(ROOT, "_redirects"), "w", encoding="utf8").write("\n".join(lines) + "\n")
 
 
