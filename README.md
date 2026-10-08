@@ -95,10 +95,10 @@ When the domain is bought:
 - `netlify.toml` sets HSTS, Content-Security-Policy, `X-Content-Type-Options: nosniff`,
   `X-Frame-Options: SAMEORIGIN`, Referrer-Policy and Permissions-Policy, plus long-term caching for
   CSS, JS and fonts. Netlify itself forces HTTPS and compresses with Brotli/Gzip.
-- The site sets **no cookies** and loads nothing from other sites on page load. Posts from X, Facebook
-  and Instagram are shown as cards; the platform's script loads only when a visitor clicks
-  "Show the original post". If you add a new third-party service, add its host to the CSP and
-  describe it in `privacy-policy/index.html`.
+- The site itself sets **no cookies**. Original posts from X, Facebook and Instagram load automatically as a
+  visitor scrolls to them (those platforms may set their own cookies, as the Privacy Policy explains); each
+  post shows as a text card first, which stays if the platform is blocked. YouTube loads only on play. If you
+  add a new third-party service, add its host to the CSP and describe it in `privacy-policy/index.html`.
 - The contact form posts to FormSubmit, which forwards it to arraysingenieria@gmail.com. The first
   submission from the live site triggers a one-time activation email from FormSubmit to that inbox:
   click the link in it, or enquiries will not arrive.

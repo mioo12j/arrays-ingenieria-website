@@ -967,10 +967,8 @@ def social_embed(platform, url, name, handle, text, iso):
     else:
         inner = (f'<blockquote class="se-card" data-embed-class="instagram-media" data-instgrm-permalink="{url}" data-instgrm-version="14" '
                  f'data-instgrm-captioned>{card}</blockquote>')
-    # Click-to-load: no third-party script, cookie or request until the visitor asks for the original post.
-    load = (f'<button type="button" class="se-load" data-load-embed>Show the original post'
-            f'<small>Loads content and cookies from {PLATFORM_NAME[platform]}</small></button>')
-    return f'<div class="se reveal" data-platform="{platform.lower()}">{inner}{load}</div>'
+    # components.js swaps the card for the platform's official embed as the visitor scrolls near it.
+    return f'<div class="se reveal" data-platform="{platform.lower()}">{inner}</div>'
 
 
 def embed_items(ids=None):
