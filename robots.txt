@@ -1,0 +1,7 @@
+# Arrays Ingenieria (Ingenieria): search engines and AI assistants may crawl and cite this site.
+User-agent: *
+Allow: /
+Disallow: /tools/
+
+Sitemap: https://arraysingenieria.netlify.app/sitemap.xml
+# Plain-language summary of the site: https://arraysingenieria.netlify.app/llms.txt
