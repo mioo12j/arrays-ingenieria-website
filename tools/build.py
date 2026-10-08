@@ -493,6 +493,19 @@ COVERAGE = [
                 ("Facebook", "https://www.facebook.com/100065189221572/posts/pfbid0MmznkBYfeKxNF66pmnNDk3iEFfGnY1wan7LNwMDm4316vznz3bg86ZkZwAgdjheHl/")],
          img="assets/koomber/arrays-ingenieria-ex-servicemen-led-koomber-tea-estate-595kwp-solar-cm-reviews-solar-plant-with-mlas.jpg",
          alt="The Chief Minister with MLAs at the Koomber solar plant"),
+    dict(id="rajdeep-goala-koomber", kind="official", outlet="Shri Rajdeep Goala, MLA, Udharbond", handle="@RajdeepGoala14",
+         place="Member of the Assam Legislative Assembly", date="2026-10-01",
+         headline="\"Particularly encouraging to witness Arrays Ingenieria\"",
+         quote="It is particularly encouraging to witness Arrays Ingenieria, an MSME led by ex-servicemen under the stewardship of "
+               "Lt. Gen. A.R. Prasad (Retd.), translating its expertise, precision and institutional discipline into critical "
+               "renewable-energy infrastructure.",
+         summary="Writing after joining the Chief Minister at the inauguration of the 595 kWp solar plant at Koomber Tea Garden, "
+                 "\"a significant milestone under the Goodricke Green Initiative\", and calling it \"a meaningful step towards a "
+                 "cleaner, more resilient and future-ready Barak Valley.\"",
+         links=[("X", "https://x.com/RajdeepGoala14/status/2105730931860574342"),
+                ("Facebook", "https://www.facebook.com/story.php?story_fbid=1732055695593913&id=100063684971835")],
+         img="assets/koomber/arrays-ingenieria-ex-servicemen-led-koomber-tea-estate-595kwp-solar-cm-and-officials-at-solar-site.jpg",
+         alt="The Chief Minister of Assam with MLAs at the Koomber solar plant built by Arrays Ingenieria"),
     dict(id="hub-network-orangajuli", kind="online", outlet="Hub Network", place="Guwahati, Assam", platform="hubnetwork.in",
          date="2026-09-04",
          headline="Assam tea garden gets 450 kWp solar plant as clean energy push gathers pace",
@@ -1174,10 +1187,13 @@ def render_cm_showcase(videos=True):
         ("CM's Office on Facebook", "Facebook", "https://www.facebook.com/cmofficeassam/photos/d41d8cd9/1422387263413542/?set=a.302403535411926"),
         ("MLA Kaushik Rai on X", "X", "https://x.com/iKaushikRai/status/2105642116089008488"),
         ("MLA Kaushik Rai on Facebook", "Facebook", "https://www.facebook.com/100065189221572/posts/pfbid0MmznkBYfeKxNF66pmnNDk3iEFfGnY1wan7LNwMDm4316vznz3bg86ZkZwAgdjheHl/"),
+        ("MLA Rajdeep Goala on X", "X", "https://x.com/RajdeepGoala14/status/2105730931860574342"),
+        ("MLA Rajdeep Goala on Facebook", "Facebook", "https://www.facebook.com/story.php?story_fbid=1732055695593913&id=100063684971835"),
         ("The Sentinel", "", "https://www.sentinelassam.com/breakingnews/assam-himanta-biswa-sarma-inaugurates-595-kwp-solar-plant-at-koomber-tea-estate"),
         ("The Sentinel on Instagram", "Instagram", "https://www.instagram.com/p/Dd89-ViDQcG/"),
         ("The Sentinel on Facebook", "Facebook", "https://www.facebook.com/100066523279937/posts/pfbid05Ug3kevPqUdUBp7ZyFbD8Eix3hYRzu78MVR8yNixHt17o5B3cShMNFXW1o4Mw1Y8l/")])
     rai = next(c for c in COVERAGE if c["id"] == "kaushik-rai-koomber")
+    goala = next(c for c in COVERAGE if c["id"] == "rajdeep-goala-koomber")
     return f"""<div class="cm-show">
       <div class="cm-mosaic reveal">{mosaic}<span class="cm-badge"><b>1 Oct 2026</b>Koomber Tea Estate, Assam</span></div>
       <div class="cm-text reveal" data-d="1">
@@ -1185,6 +1201,7 @@ def render_cm_showcase(videos=True):
         <h3>Dr Himanta Biswa Sarma opens the 595 kWp solar plant we installed at Koomber Tea Estate</h3>
         <p>Part of the 3.11 MW Goodricke Tea Estates Solar Programme with Tata Power Renewable Energy and Sustvest, with Arrays Ingenieria as installation partner.</p>
         <blockquote class="cm-quote"><p>“{esc(rai['quote'])}”</p><cite>{esc(rai['outlet'])}, on X and Facebook</cite></blockquote>
+        <blockquote class="cm-quote"><p>“{esc(goala['quote'])}”</p><cite>{esc(goala['outlet'])}, on X and Facebook</cite></blockquote>
         <div class="cm-chips"><span>Shared and reported by</span>{chips}</div>
         <div class="cm-cta"><a class="btn btn--sun" href="{case}">See the inauguration {ARROW_SVG}</a><a class="btn btn--ghost" href="{case}#album">Photo album ({len(KOOMBER_ALBUM)})</a></div>
       </div>
@@ -1333,7 +1350,7 @@ def render_project_page(p):
         extra += f"""
 <section class="section section--news" id="official">
   <div class="container">
-    <div class="section-head center reveal"><span class="eyebrow">On Official Handles</span><h2>As Posted on <span class="text-sun">Official Handles</span></h2><p>The inauguration as posted by the Chief Minister's Office, MLA Kaushik Rai and The Sentinel, shown as the original posts.</p></div>
+    <div class="section-head center reveal"><span class="eyebrow">On Official Handles</span><h2>As Posted on <span class="text-sun">Official Handles</span></h2><p>The inauguration as posted by the Chief Minister's Office, MLAs Kaushik Rai and Rajdeep Goala, and The Sentinel, shown as the original posts.</p></div>
     {render_official(p["official"] + p["coverage"], with_ids=False)}
   </div>
 </section>"""
@@ -1431,6 +1448,15 @@ def render_project_page(p):
                                 "address": {"@type": "PostalAddress", "addressRegion": "Assam", "addressLocality": "Cachar", "addressCountry": "IN"}},
                    "description": p["intro"], "image": [f"{SITE_URL}/{src}" for src, _ in p["album"][:6]],
                    "performer": {"@type": "Person", "name": "Dr Himanta Biswa Sarma", "jobTitle": "Chief Minister of Assam"},
+                   "attendee": [
+                       {"@type": "Person", "name": "Shri Kaushik Rai", "jobTitle": "MLA, Lakhipur",
+                        "sameAs": ["https://x.com/iKaushikRai"],
+                        "subjectOf": "https://x.com/iKaushikRai/status/2105642116089008488"},
+                       {"@type": "Person", "name": "Shri Rajdeep Goala", "jobTitle": "MLA, Udharbond",
+                        "sameAs": ["https://x.com/RajdeepGoala14"],
+                        "subjectOf": "https://x.com/RajdeepGoala14/status/2105730931860574342"},
+                       {"@type": "Person", "name": "Shri Krishnendu Paul", "jobTitle": "Minister of Public Health Engineering and MLA, Patharkandi"},
+                       {"@type": "Person", "name": "Dr Rajdeep Roy", "jobTitle": "MLA, Silchar"}],
                    "organizer": {"@type": "Organization", "name": "Goodricke Group"},
                    "contributor": {"@id": SITE_URL + "/#organization"}})
     return page_shell("projects", body_html, p["hero"], hero_alt, ld)
@@ -2111,6 +2137,8 @@ def write_llms():
            "- Installation partner for the 3.11 MW Goodricke Tea Estates Solar Programme (TPREL and Sustvest) in Assam: Koomber 595 kWp "
            "(inaugurated by Assam Chief Minister Dr Himanta Biswa Sarma on 1 October 2026), Orangajuli 450 kWp (4 September 2026) and "
            "Borpatra 230 kWp (25 September 2026).",
+           "- At the Koomber inauguration, MLAs Kaushik Rai (Lakhipur) and Rajdeep Goala (Udharbond) publicly praised Arrays Ingenieria "
+           "as an MSME led by ex-servicemen under Lt. Gen. A.R. Prasad (Retd) delivering critical renewable-energy infrastructure.",
            "- Registrations: CIN U45309DL2018PTC340544; Udyam UDYAM-DL-03-0023905; ISO 9001, ISO 14001, ISO 45001.",
            "- Contact: arraysingenieria@gmail.com, or the form at " + SITE_URL + "/contact/", ""]
     for title, files in groups:
