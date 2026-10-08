@@ -503,7 +503,7 @@ COVERAGE = [
                  "\"a significant milestone under the Goodricke Green Initiative\", and calling it \"a meaningful step towards a "
                  "cleaner, more resilient and future-ready Barak Valley.\"",
          links=[("X", "https://x.com/RajdeepGoala14/status/2105730931860574342"),
-                ("Facebook", "https://www.facebook.com/story.php?story_fbid=1732055695593913&id=100063684971835")],
+                ("Facebook", "https://www.facebook.com/100063684971835/posts/1732055695593913/")],
          img="assets/koomber/arrays-ingenieria-ex-servicemen-led-koomber-tea-estate-595kwp-solar-cm-and-officials-at-solar-site.jpg",
          alt="The Chief Minister of Assam with MLAs at the Koomber solar plant built by Arrays Ingenieria"),
     dict(id="hub-network-orangajuli", kind="online", outlet="Hub Network", place="Guwahati, Assam", platform="hubnetwork.in",
@@ -1188,7 +1188,7 @@ def render_cm_showcase(videos=True):
         ("MLA Kaushik Rai on X", "X", "https://x.com/iKaushikRai/status/2105642116089008488"),
         ("MLA Kaushik Rai on Facebook", "Facebook", "https://www.facebook.com/100065189221572/posts/pfbid0MmznkBYfeKxNF66pmnNDk3iEFfGnY1wan7LNwMDm4316vznz3bg86ZkZwAgdjheHl/"),
         ("MLA Rajdeep Goala on X", "X", "https://x.com/RajdeepGoala14/status/2105730931860574342"),
-        ("MLA Rajdeep Goala on Facebook", "Facebook", "https://www.facebook.com/story.php?story_fbid=1732055695593913&id=100063684971835"),
+        ("MLA Rajdeep Goala on Facebook", "Facebook", "https://www.facebook.com/100063684971835/posts/1732055695593913/"),
         ("The Sentinel", "", "https://www.sentinelassam.com/breakingnews/assam-himanta-biswa-sarma-inaugurates-595-kwp-solar-plant-at-koomber-tea-estate"),
         ("The Sentinel on Instagram", "Instagram", "https://www.instagram.com/p/Dd89-ViDQcG/"),
         ("The Sentinel on Facebook", "Facebook", "https://www.facebook.com/100066523279937/posts/pfbid05Ug3kevPqUdUBp7ZyFbD8Eix3hYRzu78MVR8yNixHt17o5B3cShMNFXW1o4Mw1Y8l/")])
