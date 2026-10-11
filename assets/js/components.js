@@ -268,7 +268,16 @@ window.phoneProblem = function (raw) {
     v.addEventListener("pause", paint);
     fig.appendChild(btn);
     paint();
-    if (!(reduce && reduce.matches)) { const p = v.play(); if (p && p.catch) p.catch(() => paint()); }
+    // autoplay only while on screen (the files are several MB: nothing downloads until the video is near view);
+    // once someone presses Pause, scrolling never restarts it
+    let userPaused = false;
+    btn.addEventListener("click", () => { userPaused = v.paused; }); // runs after the toggle above
+    const start = () => { if (!(reduce && reduce.matches) && !userPaused) { const p = v.play(); if (p && p.catch) p.catch(() => paint()); } };
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((entries) => entries.forEach((e) => {
+        if (e.isIntersecting) start(); else if (!v.paused) v.pause();
+      }), { rootMargin: "200px 0px" }).observe(v);
+    } else start();
     if (reduce && reduce.addEventListener) reduce.addEventListener("change", (e) => { if (e.matches) v.pause(); });
   });
 })();

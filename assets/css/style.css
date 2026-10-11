@@ -2221,4 +2221,4 @@ input[aria-invalid="true"] { border-color: #d92d20 !important; }
 .office-line { animation: none; }
 .office-ring { animation-name: ringPulseT; }
 @keyframes ringPulseT { 0% { transform: scale(.67); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
-main > section ~ section ~ section { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+/* (content-visibility was tried here and dropped: placeholder heights made the page jump and broke in-page links) */
