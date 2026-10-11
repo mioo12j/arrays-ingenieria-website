@@ -272,3 +272,20 @@ window.phoneProblem = function (raw) {
     if (reduce && reduce.addEventListener) reduce.addEventListener("change", (e) => { if (e.matches) v.pause(); });
   });
 })();
+
+/* Load a script from /assets/js/ on demand, with the same ?v= version as this file. */
+window.loadScript = (function () {
+  const cache = {};
+  const me = document.currentScript && document.currentScript.src;
+  return function (name) {
+    if (cache[name]) return cache[name];
+    const base = me ? me.replace(/components(\.min)?\.js/, name) : "/assets/js/" + name;
+    cache[name] = new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = base; s.async = true; s.onload = resolve;
+      s.onerror = () => { delete cache[name]; reject(new Error("load failed: " + name)); };
+      document.head.appendChild(s);
+    });
+    return cache[name];
+  };
+})();

@@ -2610,8 +2610,8 @@ def process_page(fname):
     # links, asset versions, scripts
     text = normalise_links(text)
     text = re.sub(r"\?v=[0-9a-f]+", f"?v={ASSET_VERSION}", text)
-    if 'id="indiaMap"' not in text:
-        text = re.sub(r'<script src="/?assets/js/india-map-data(?:\.min)?\.js[^"]*"[^>]*></script>\n', "", text)
+    # the map data and the PDF library are loaded on demand by components.js (window.loadScript)
+    text = re.sub(r'<script src="/?assets/js/(?:india-map-data(?:\.min)?|jspdf\.umd\.min)\.js[^"]*"[^>]*></script>\n', "", text)
 
     # images
     head, body = text.split("</head>", 1)
