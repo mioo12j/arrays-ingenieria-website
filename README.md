@@ -71,16 +71,12 @@ the "featured in" strips and the structured data. Then run the build.
 ## Domain
 `SITE_URL` in `tools/build.py` is the site's public address, used only where search engines and social
 networks need a full URL: canonical tags, `og:`/`twitter:` tags, structured data, `sitemap.xml`,
-`robots.txt` and `llms.txt`. It must be an address that loads. Today that is the Cloudflare Pages
-address **https://arrays-9mj.pages.dev**. Every link between pages, image and script is root-relative
+`robots.txt` and `llms.txt`. It is **https://arraysingenieria.com**, connected to the Cloudflare Pages
+project under Custom domains. Every link between pages, image and script is root-relative
 (`/about/`, `/assets/...`), so the site works on any host; the build fails if a page link uses a full domain.
+The old `*.pages.dev` addresses still load, but every page's canonical tag points at arraysingenieria.com.
 
-When `arraysingenieria.com` is bought:
-1. In Cloudflare Pages, open the project, go to Custom domains and add `arraysingenieria.com` (and
-   `www.arraysingenieria.com`); Cloudflare sets up DNS and HTTPS.
-2. Once https://arraysingenieria.com loads, set `SITE_URL = "https://arraysingenieria.com"`, run
-   `python3 tools/build.py`, commit and push.
-3. In Google Search Console, add the domain and submit `https://arraysingenieria.com/sitemap.xml`.
+After publishing changes, run `python3 tools/indexnow.py` to tell Bing and other IndexNow engines.
 
 ## Run locally
     python3 tools/serve.py          # then open http://localhost:8766/
